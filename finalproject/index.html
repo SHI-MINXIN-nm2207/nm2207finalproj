@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> snake game </title>
+    <link rel="stylesheet" href="./css/ppt.css">
+    <link rel="stylesheet" href="./css/snake.css">
+  </head>
+  <body>
+    <div id="dialog" class="dialog">
+      <div class="title">Please enter your name</div>
+      <input type="text" class="dialogTxt" id="dialogTxt">
+      <div class="sure" id="sure"> Sure </div>
+    </div>
+    <audio preload loop src="./Volumebgm.mp3" autoplay id="vd">
+      Your browser does not support the audio element.
+    </audio>
+    <canvas id="pptCanvas" width="1000" height="600"></canvas>
+    <div id= "main" >
+      <div class="count-down"> Time: <span id = 'timecount'>100</span>s</div>
+      <!-- 毛玻璃遮罩盒子 -->
+      <div id = beginBox >
+          <div class="btn" id="begin">Begin </div>
+      </div>
+      <!-- 蛇 -->
+      <div class="map" id="map"></div>
+      <div class="desc">
+        Attention:
+        <span class="item fruits">Fruits</span>
+        <span class="item poison">Poison</span>
+        <span class="item drugs">Drugs</span>
+      </div>
+  </div>
+    <script src="./js/snake.js"></script>
+    <script src="js/ppt.js"></script>
+  </body>
+</html>
