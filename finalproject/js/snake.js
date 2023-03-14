@@ -26,7 +26,7 @@ function updateTime() {
 
     // when time left is 0, the game will end
     if (remainingTime <= 0) {
-        alert('timeout! You died!');
+        popMsg('timeout! You died!')
         flagBagin = false;
         timeoutflag = true;
         return;
@@ -37,13 +37,13 @@ function updateTime() {
 
 // update the time every 1s
 setInterval(updateTime, 1000);
-  
+
 
 
 // using constructor to create a snake
 function Snake() {
     // set the size of the snake and the direction
-    
+
     this.width = 10;
     this.height = 10;
     this.direction = 'down';
@@ -60,7 +60,7 @@ function Snake() {
     this.display = function () {
         // create a snake
         for (var i = 0; i < this.body.length; i++) {
-            if (this.body[i].x != null) {   
+            if (this.body[i].x != null) {
                 // 当吃到食物时，x==null，不能新建，不然会在0，0处新建一个
                 // when the snake eat the food, the x of the snake will be null, so we can't create a new snake
                 var s = document.createElement('div');
@@ -95,8 +95,12 @@ function Snake() {
     // let the snake run, the position of the next element is the position of the previous element
     // the head of the snake will change according to the direction, so i can't be 0
     this.run = function () {
+        console.log(' runtime' + SnakeTime);
         // 后一个元素到前一个元素的位置
         // the position of the next element is the position of the previous element
+        if (flagBagin === false) {
+            return;
+        }
         for (var i = this.body.length - 1; i > 0; i--) {
             this.body[i].x = this.body[i - 1].x;
             this.body[i].y = this.body[i - 1].y;
@@ -119,11 +123,11 @@ function Snake() {
         }
         // when time out, the snake will die
         if (timeoutflag === true) {
-            clearInterval(timer); 
+            clearInterval(timer);
             document.getElementById('beginBox').style.display = 'block';
             // delete the old snake
             for (var i = 0; i < this.body.length; i++) {
-                if (this.body[i].flag != null) {   
+                if (this.body[i].flag != null) {
                     map.removeChild(this.body[i].flag);
                 }
             }
@@ -140,14 +144,14 @@ function Snake() {
 
         // 判断是否出界,根据蛇头判断
         // judge whether the snake is out of the map, according to the head of the snake
-        if (this.body[0].x < 0 || this.body[0].x >  120  || this.body[0].y < 0 || this.body[0].y > 60) {
-            clearInterval(timer);  
+        if (this.body[0].x < 0 || this.body[0].x > 120 || this.body[0].y < 0 || this.body[0].y > 60) {
+            clearInterval(timer);
             // 清除定时器
             // clear the timer
-            alert("You out of the map! You died!");
+            popMsg('You out of the map! You died')
             document.getElementById('beginBox').style.display = 'block';
             for (var i = 0; i < this.body.length; i++) {
-                if (this.body[i].flag != null) {   
+                if (this.body[i].flag != null) {
 
                     map.removeChild(this.body[i].flag);
                 }
@@ -169,7 +173,7 @@ function Snake() {
             // 蛇加一节，因为根据最后节点定，下面display时，会自动赋值的
             // add a new element to the snake, because the last element will be the new element
             this.body.push({ x: null, y: null, flag: null });
-            
+
             // 获取蛇的长度
             // get the length of the snake
             var len = this.body.length;
@@ -194,26 +198,31 @@ function Snake() {
             // 蛇减一节，因为根据最后节点定，下面display时，会自动赋值的
             // delete a new element to the snake, because the last element will be the new element
             //console.log('毒药: ' +this.body[0].x, wrongfood.x, this.body[0].y, wrongfood.y);
+            console.log('bad runtime' + SnakeTime);
             var add = this.body.pop();
             map.removeChild(add.flag);
-            
+
             // 获取蛇的长度
             // get the length of the snake
             var len = this.body.length;
             // 根据蛇的长度，设置定时器频率SnakeTime
             // set the timer according to the length of the snake
+            if (len < 3) {
+                SnakeTime = 210;
+            }
             SnakeTime = SnakeTime + (len - 3) * 5;
             // SnakeTime最低不能小于40
             // SnakeTime can't be less than 40
-            if (SnakeTime > 40) {
-                SnakeTime = 40;
+            if (SnakeTime > 200) {
+                SnakeTime = 200;
             }
             if (this.body.length < 3) {
-                alert("You are too short to live!");
+                popMsg('You are too short to live!')
+                clearInterval(timer);
                 flagBagin = false;
                 document.getElementById('beginBox').style.display = 'block';
                 for (var i = 0; i < this.body.length; i++) {
-                    if (this.body[i].flag != null) {   
+                    if (this.body[i].flag != null) {
                         map.removeChild(this.body[i].flag);
                     }
                 }
@@ -238,15 +247,16 @@ function Snake() {
             // add two new element to the snake, because the last element will be the new element
             this.body.push({ x: null, y: null, flag: null });
             this.body.push({ x: null, y: null, flag: null });
-            
+
             // 获取蛇的长度
             // get the length of the snake
             var len = this.body.length;
             // 根据蛇的长度，设置定时器频率SnakeTime
             SnakeTime = SnakeTime - (len - 3) * 5;
             // SnakeTime最低不能小于40
-            if (SnakeTime > 200) {
-                SnakeTime = 200;
+            
+            if (SnakeTime < 40) {
+                SnakeTime = 40;
             }
             refresh();
             // 清除食物,重新生成食物
@@ -259,11 +269,11 @@ function Snake() {
         for (var i = 4; i < this.body.length; i++) {
             if (this.body[0].x == this.body[i].x && this.body[0].y == this.body[i].y) {
                 clearInterval(timer);   // clear the timer
-                alert("You eat yourself! You are dead!");
+                popMsg('You eat yourself! You are dead!')
                 flagBagin = false;
                 document.getElementById('beginBox').style.display = 'block';
                 for (var i = 0; i < this.body.length; i++) {
-                    if (this.body[i].flag != null) {  
+                    if (this.body[i].flag != null) {
                         map.removeChild(this.body[i].flag);
                     }
                 }
@@ -278,7 +288,7 @@ function Snake() {
             }
         }
         if (this.body.length > 15) {
-            alert("congratulations! You win!");
+            popMsg('congratulations! You win!', true)
             flagBagin = false;
         }
 
@@ -310,8 +320,8 @@ function Food() {
         f.style.height = this.height + 'px';
         f.style.background = 'red';
         f.style.position = 'absolute';
-        this.x = Math.floor(Math.random() * 80);
-        this.y = Math.floor(Math.random() * 40);
+        this.x = Math.floor(Math.random() * 100) + 10;
+        this.y = Math.floor(Math.random() * 50) + 5;
         if (this.x == wrongfood.x && this.y == wrongfood.y) {
             this.x = this.x + 1;
             this.y = this.y + 1;
@@ -335,8 +345,8 @@ function wrongfood() {
         f.style.height = this.height + 'px';
         f.style.background = 'green';
         f.style.position = 'absolute';
-        this.x = Math.floor(Math.random() * 80);
-        this.y = Math.floor(Math.random() * 40);
+        this.x = Math.floor(Math.random() * 100) + 10;
+        this.y = Math.floor(Math.random() * 50) + 5;
         if (this.x == food.x && this.y == food.y) {
             this.x = this.x + 1;
             this.y = this.y + 1;
@@ -360,8 +370,8 @@ function correctfood() {
         f.style.height = this.height + 'px';
         f.style.background = 'blue';
         f.style.position = 'absolute';
-        this.x = Math.floor(Math.random() * 80);
-        this.y = Math.floor(Math.random() * 40);
+        this.x = Math.floor(Math.random() * 100) + 10;
+        this.y = Math.floor(Math.random() * 50) + 5;
         if (this.x == food.x && this.y == food.y) {
             this.x = this.x + 1;
             this.y = this.y + 1;
@@ -373,7 +383,7 @@ function correctfood() {
         f.style.top = this.y * this.height + 'px';
         map.appendChild(f);
     }
-}  
+}
 
 
 // 给body加按键事件，上下左右
@@ -424,13 +434,13 @@ document.body.onkeydown = function (e) {
             }
             break;
     }
-    
+
 };
 
 var snake = new Snake();
 var food = new Food();
 // 初始化显示
-snake.display();   
+snake.display();
 food.display();
 var wrongfood = new wrongfood();
 wrongfood.display();
@@ -447,16 +457,17 @@ btn.onclick = function () {
     // 隐藏开始按钮
     parent.style.display = 'none';
     // 获取定时器时间
-    let time = SnakeTime;
-    timer = setInterval(function () {
-        snake.run();
-    }, time);
+    SnakeTime = 200;
+    let time2 = SnakeTime;
     flagBagin = true;
     startTime = Date.now();
     timeoutflag = false;
+    timer = setInterval(function () {
+        snake.run();
+    }, time2);
+
+    
 }
-
-
 
 
 // 定义刷新定时器方法
@@ -467,4 +478,31 @@ function refresh() {
     timer = setInterval(function () {
         snake.run();
     }, SnakeTime);
+}
+
+// 弹窗提示
+function popMsg(msg, flag) {
+    let dom = document.createElement('div')
+    dom.textContent = msg
+    dom.className = 'message'
+    document.body.appendChild(dom)
+    setTimeout(() => {
+        dom.classList.add('zoomOut')
+        document.body.removeChild(dom)
+    }, 2000)
+    showAni(flag)
+}
+
+// 显示烟花/炸弹
+function showAni(flag = false) {
+    let dom
+    if (flag) {
+        dom = document.querySelector('.fire')
+    } else {
+        dom = document.querySelector('.bomb')
+    }
+    dom.style.display = 'block'
+    setTimeout(() => {
+        dom.style.display = 'none'
+    }, 2000)
 }

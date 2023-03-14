@@ -130,7 +130,7 @@ const awaitSendText = async (txt, fontSize, stepV) => {
   return new Promise((resolve) => {
     sendText(txt, fontSize, stepV)
     colors.sort(v => Math.random() - 0.5)
-    setTimeout(() => resolve(), 160 + (stepV > 40 ? 1000 : 0))
+    setTimeout(() => resolve(), 4160 + (stepV > 40 ? 1000 : 0))
   })
 }
 
