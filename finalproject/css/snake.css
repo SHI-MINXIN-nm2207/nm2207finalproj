@@ -1,38 +1,49 @@
+/* 清除默认样式 */
+/* clear default style */
 body {
     margin: 0;
     padding: 0;
 }
 
+/* 游戏主体容器 */
+/* game main container */
 #main {
-    display: none;
-    width: 1200px;
-    height: 600px;
-    position: relative;
-    top: 50vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
+    display: none; /* 初始时隐藏 hide initially */
+    width: 1200px; /* 宽度  width */
+    height: 600px; /* 高度 height */
+    position: relative; /* 相对定位  relative positioning */
+    top: 50vh; /* 垂直居中 vertical center */
+    left: 50vw; /* 水平居中 horizontal center */
+    transform: translate(-50%, -50%); /* 位移  translation */
 }
 
+/* 倒计时容器 */
+/* count down container */
 .count-down {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-weight: bold;
-    font-size: 24px;
-    color: #fff;
-    z-index: 12;
+    position: absolute; /* 绝对定位 absolute positioning */
+    top: 20px; /* 上边距 top margin */
+    left: 20px; /* 左边距 left margin */
+    font-weight: bold; /* 文字加粗 bold text */
+    font-size: 24px; /* 文字大小 text size */
+    color: #fff; /* 文字颜色 text color */
+    z-index: 12; 
 }
 
-
+/* 物品描述 */
+/* item description */
 .desc {
-    position: relative;
-    bottom: -20px;
+    position: relative; /* 相对定位 relative positioning */
+    bottom: -20px; /* 下边距 bottom margin */
 }
 
+/* 物品描述图标 */
+/* item description icon */
 .item {
-    margin-left: 20px;
+    margin-left: 20px; /* 左边距 */
 }
 
+/* 水果 */
+/* fruits */
 .item::before {
     content: '';
     display: inline-block;
@@ -41,71 +52,96 @@ body {
     height: 10px;
 }
 
+
 .fruits::before {
-    background-color: red;
+    background-color: red; /* 颜色 */
 }
 
+/* 毒药 */
+/* poison */
 .poison::before {
-    background-color: green;
+    background-color: green; /* 颜色 */
 }
 
+/* 药丸 */
+/* drugs */
 .drugs::before {
-    background-color: blue;
+    background-color: blue; /* 颜色 */
 }
 
+/* 地图容器 */
+/* map container */
 .map {
-    position: relative;
-    width: 1200px;
-    height: 600px;
-    background: #000;
-    /* border-radius: 10px; */
-    margin: 0 auto;
+    position: relative; /* 相对定位 relative positioning */
+    width: 1200px; /* 宽度 width */
+    height: 600px; /* 高度 height */
+    background:url(../resources/bg.png) ; /* 背景颜色 background color */
+    margin: 0 auto; /* 水平居中 */
 }
 
+/* 开始游戏的盒子 */
+/* start game box */
 #beginBox {
-    /* 高宽全局 */
+    /* 宽高 */
+    /* width and height */
     width: 1200px;
     height: 600px;
-    /* 居中显示 */
+    /* 相对父级居中 */
+    /* relative to the parent center */
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     margin: auto;
-    /* 背景毛玻璃 */
+    /* 毛玻璃效果 */
+    /* glass effect */
     color: rgba(255, 255, 255, 0.8);
     z-index: 10;
     text-align: center;
     backdrop-filter: blur(6px);
-    /* 边框 */
-    /* border: 1px solid #fff; */
     /* 圆角 */
-    z-index: 1;
+    /* rounded corners */
+    border-radius: 5px;
+    /* 阴影 */
+    /* shadow */
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    overflow: hidden;
+    animation-duration: .3s;
 }
 
+/* 开始游戏的按钮 */
+/* start game button */
 #begin {
-    width: 200px;
-    height: 50px;
-    background: #fff;
-    border: 1px solid #fff;
+    width: 200px; /* 宽度 */
+    height: 50px; /* 高度 */
+    background: #fff; /* 背景色 */
+    border: 1px solid;
+
     /* 相对父级盒子居中 */
+    /* relative to the parent box center */
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #000;
     /* 文字加粗居中 */
+    /* text bold center */
     text-align: center;
     font-size: 20px;
     /* 文字上下居中 */
+    /* text vertical center */
     line-height: 50px;
     /* 字体阴影 */
+    /* font shadow */
     text-shadow: 1px 1px 1px rgb(114, 112, 112);
     /* 鼠标改变 */
+    /* mouse change */
     cursor: pointer;
 }
 
+/*弹窗效果*/
+/* pop-up effect */
 .message {
     position: fixed;
     top: 60vh;
@@ -123,7 +159,12 @@ body {
     animation-duration: .3s;
 }
 
+/* 定义一个keyframes动画，名称为zoomOut */
+/* define a keyframes animation named zoomOut */
 @keyframes zoomOut {
+    /* 0%时，透明度为1 */
+    /* 0% opacity is 1 */
+
     from {
         opacity: 1;
     }
@@ -133,9 +174,12 @@ body {
     }
 }
 
+/* 定义一个keyframes动画，名称为zoomIn */
+/* define a keyframes animation named zoomIn */
 .zoomOut {
     animation-name: zoomOut;
 }
+
 
 .fire,
 .bomb {
@@ -149,16 +193,22 @@ body {
     margin-left: -200px;
 }
 
+/* 火焰图像 */
+/* fire image */
 .fire {
-    background: url(../fire.png) center no-repeat;
+    background: url(../resources/fire.png) center no-repeat;
     animation: animation 2s;
 }
 
+/* 炸弹图像 */
+/* bomb image */
 .bomb {
-    background: url(../bomb.png) center no-repeat;
+    background: url(../resources/bomb.png) center no-repeat;
     animation: bomb 2s;
 }
 
+/*设置动画持续时间和效果*/
+/* set animation duration and effect */
 @keyframes animation {
     from {
         opacity: 0;
@@ -175,8 +225,10 @@ body {
     }
 }
 
+/* Define the animation keyframes named "bomb" */
 @keyframes bomb {
 
+    /* The animation starts at the "from" keyframe */
     from,
     20%,
     53%,
@@ -185,22 +237,27 @@ body {
         transform: translate3d(0, 0, 0);
     }
 
+    /* The animation progresses to the 40% and 43% keyframes */
     40%,
     43% {
+        /* The animation-timing-function property is set to ease-in-out */
         animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
         transform: translate3d(0, -30px, 0) scaleY(1.1);
     }
 
+    /* The animation progresses to the 70% keyframe */
     70% {
         animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
         transform: translate3d(0, -15px, 0) scaleY(1.05);
     }
 
+    /* The animation progresses to the 80% keyframe */
     80% {
         transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
         transform: translate3d(0, 0, 0) scaleY(0.95);
     }
 
+    /* The animation progresses to the last keyframe, which is also "to" */
     90% {
         transform: translate3d(0, -4px, 0) scaleY(1.02);
     }

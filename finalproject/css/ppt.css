@@ -1,21 +1,10 @@
 /* 添加Google Fonts字体链接 */
-/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); */
+/* add Google Fonts link */
 @import url('https://fonts.googleapis.com/css?family=Righteous');
-
-/* 为body元素添加背景颜色和字体 */
-/* body {
-
-  background-image: radial-gradient(circle, white, black);
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  padding: 0;
-} */
 
 
 /* 为canvas元素添加背景颜色和阴影效果 */
+/* add background color and shadow effect to canvas element */
 .dialog {
   padding: 10px;
   width: 280px;
@@ -29,8 +18,8 @@
   border-radius: 3px;
 }
 
-.title {}
-
+/* 为对话框添加背景颜色和阴影效果 */
+/* add background color and shadow effect to dialog element */
 .dialogTxt {
   margin: 10px 0;
   padding: 5px;
@@ -40,6 +29,8 @@
   box-sizing: border-box;
 }
 
+/* 为确认按钮添加样式 */
+/* add style to confirm button */
 .sure {
   width: 50px;
   padding: 5px;
@@ -50,6 +41,8 @@
   float: right;
 }
 
+/* 画布的整体样式 */
+/* overall style of canvas */
 canvas {
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.3) inset;
   border-radius: 20px;
